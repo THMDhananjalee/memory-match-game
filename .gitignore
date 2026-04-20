@@ -1,0 +1,13 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor configs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# No build step needed — vanilla JS project
+# node_modules would only appear if you add a dev server package
+node_modules/

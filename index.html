@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memory Match — Portfolio Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ══════════════ SCREEN: START ══════════════ -->
+  <div id="screen-start" class="screen active">
+    <div class="start-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="start-content">
+      <div class="logo-lockup">
+        <div class="logo-icon">
+          <span class="card-preview">🃏</span>
+        </div>
+        <h1 class="game-title">Memory<br /><em>Match</em></h1>
+      </div>
+      <p class="tagline">10 levels of ascending chaos. How far can you go?</p>
+      <div class="start-meta">
+        <span class="badge">Pairs · Triplets · Quads · Quints</span>
+      </div>
+      <button id="btn-start" class="btn-primary">
+        <span class="btn-text">Begin Challenge</span>
+        <span class="btn-icon">→</span>
+      </button>
+      <button id="btn-sound-toggle" class="btn-ghost sound-btn" aria-label="Toggle sound">
+        <span id="sound-icon">🔊</span> Sound On
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════ SCREEN: MEMORIZE ══════════════ -->
+  <div id="screen-memorize" class="screen">
+    <div class="memorize-header">
+      <div class="level-badge">
+        <span class="level-label">LEVEL</span>
+        <span id="mem-level-num" class="level-num">1</span>
+      </div>
+      <div class="memorize-info">
+        <p id="mem-rule-text" class="rule-text">Match pairs of identical cards</p>
+        <div class="countdown-ring-wrap">
+          <svg class="countdown-ring" viewBox="0 0 56 56">
+            <circle class="ring-bg" cx="28" cy="28" r="24" />
+            <circle id="ring-progress" class="ring-fg" cx="28" cy="28" r="24" />
+          </svg>
+          <span id="mem-countdown" class="countdown-num">5</span>
+        </div>
+      </div>
+      <p class="memorize-hint">Memorize — cards will flip in <span id="mem-seconds">5</span>s</p>
+    </div>
+    <div id="mem-grid" class="card-grid"></div>
+  </div>
+
+  <!-- ══════════════ SCREEN: PLAY ══════════════ -->
+  <div id="screen-play" class="screen">
+    <header class="game-header">
+      <div class="hud-item">
+        <span class="hud-label">LEVEL</span>
+        <span id="play-level" class="hud-val">1</span>
+      </div>
+      <div class="progress-track">
+        <div id="level-progress-bar" class="progress-fill"></div>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">SCORE</span>
+        <span id="play-score" class="hud-val">0</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">MOVES</span>
+        <span id="play-moves" class="hud-val">0</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">TIME</span>
+        <span id="play-timer" class="hud-val">60</span>
+      </div>
+      <button id="btn-pause" class="btn-icon-only" aria-label="Pause">⏸</button>
+    </header>
+
+    <div class="match-rule-bar">
+      <span id="play-rule-text">Match 2 identical cards</span>
+      <span id="matches-left" class="matches-badge">0 left</span>
+    </div>
+
+    <div id="play-grid" class="card-grid"></div>
+
+    <div id="combo-display" class="combo-display hidden">
+      <span id="combo-text"></span>
+    </div>
+  </div>
+
+  <!-- ══════════════ SCREEN: LEVEL COMPLETE ══════════════ -->
+  <div id="screen-level-complete" class="screen">
+    <div class="complete-card">
+      <div class="complete-icon" id="complete-icon">✨</div>
+      <h2 class="complete-title">Level <span id="complete-level">1</span> Clear!</h2>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">Score</span>
+          <span id="stat-score" class="stat-val">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Moves</span>
+          <span id="stat-moves" class="stat-val">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Time</span>
+          <span id="stat-time" class="stat-val">0s</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Stars</span>
+          <span id="stat-stars" class="stat-val">⭐⭐⭐</span>
+        </div>
+      </div>
+      <div class="complete-actions">
+        <button id="btn-next-level" class="btn-primary">Next Level →</button>
+        <button id="btn-restart-level" class="btn-ghost">Retry</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ SCREEN: GAME OVER ══════════════ -->
+  <div id="screen-game-over" class="screen">
+    <div class="complete-card gameover-card">
+      <div class="complete-icon">⏱️</div>
+      <h2 class="complete-title">Time's Up!</h2>
+      <p class="gameover-sub">Level <span id="go-level">1</span> · <span id="go-matches">0</span> matches found</p>
+      <div class="complete-actions">
+        <button id="btn-retry" class="btn-primary">Try Again</button>
+        <button id="btn-home" class="btn-ghost">Home</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ SCREEN: VICTORY ══════════════ -->
+  <div id="screen-victory" class="screen">
+    <div class="victory-bg">
+      <div class="confetti-container" id="confetti-container"></div>
+    </div>
+    <div class="victory-content">
+      <div class="trophy">🏆</div>
+      <h2 class="victory-title">Master Mind!</h2>
+      <p class="victory-sub">All 10 levels conquered</p>
+      <div class="final-score-display">
+        <span class="final-score-label">FINAL SCORE</span>
+        <span id="final-score" class="final-score-num">0</span>
+      </div>
+      <button id="btn-play-again" class="btn-primary">Play Again</button>
+    </div>
+  </div>
+
+  <!-- ══════════════ PAUSE OVERLAY ══════════════ -->
+  <div id="pause-overlay" class="overlay hidden">
+    <div class="pause-card">
+      <h3>Paused</h3>
+      <button id="btn-resume" class="btn-primary">Resume</button>
+      <button id="btn-home-pause" class="btn-ghost">Quit to Home</button>
+    </div>
+  </div>
+
+  <!-- Scripts — loaded in dependency order -->
+  <script src="js/config.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/grid.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+/* ═══════════════════════════════════════════════════════════════
+   animations.css — All Keyframe Animations & Transitions
+   Separated so animation changes never touch layout code.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Card Shake (mismatch) ───────────────────────────────────── */
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  15%  { transform: translateX(-7px); }
+  30%  { transform: translateX(7px); }
+  45%  { transform: translateX(-5px); }
+  60%  { transform: translateX(5px); }
+  75%  { transform: translateX(-3px); }
+  90%  { transform: translateX(3px); }
+  100% { transform: translateX(0); }
+}
+
+.shake { animation: shake 0.65s cubic-bezier(0.4, 0, 0.2, 1) both; }
+
+/* ── Card Match Pulse ────────────────────────────────────────── */
+@keyframes matchPulse {
+  0%   { box-shadow: 0 0 0 0   rgba(29,158,117,0.6); }
+  50%  { box-shadow: 0 0 0 12px rgba(29,158,117,0); }
+  100% { box-shadow: 0 0 0 0   rgba(29,158,117,0); }
+}
+
+.card.matched .card-inner {
+  animation: matchPulse 0.6s ease-out both;
+}
+
+/* ── Combo Pop ───────────────────────────────────────────────── */
+@keyframes comboPop {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  30%  { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+  60%  { transform: translate(-50%, -50%) scale(0.95); }
+  80%  { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -60%) scale(1.05); }
+}
+
+.combo-display.pop {
+  animation: comboPop 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* ── Screen Entrance ─────────────────────────────────────────── */
+@keyframes screenFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.screen.active {
+  animation: screenFadeIn 0.35s ease both;
+}
+
+/* ── Confetti Fall ───────────────────────────────────────────── */
+@keyframes confettiFall {
+  0%   { transform: translateY(0) rotate(0deg);    opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* ── Orb Float (start screen ambient) ───────────────────────── */
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(20px, -30px) scale(1.05); }
+  66%       { transform: translate(-15px, 20px) scale(0.97); }
+}
+
+.orb-1 { animation: orbFloat 12s ease-in-out infinite; }
+.orb-2 { animation: orbFloat 15s ease-in-out infinite reverse; }
+.orb-3 { animation: orbFloat 18s ease-in-out infinite 3s; }
+
+/* ── Card reveal stagger (memorize phase) ────────────────────── */
+@keyframes cardReveal {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.card-grid .card {
+  animation: cardReveal 0.25s ease both;
+}
+
+/* Stagger each card's reveal by its position */
+.card-grid .card:nth-child(1)  { animation-delay: 0.02s; }
+.card-grid .card:nth-child(2)  { animation-delay: 0.04s; }
+.card-grid .card:nth-child(3)  { animation-delay: 0.06s; }
+.card-grid .card:nth-child(4)  { animation-delay: 0.08s; }
+.card-grid .card:nth-child(5)  { animation-delay: 0.10s; }
+.card-grid .card:nth-child(6)  { animation-delay: 0.12s; }
+.card-grid .card:nth-child(7)  { animation-delay: 0.14s; }
+.card-grid .card:nth-child(8)  { animation-delay: 0.16s; }
+.card-grid .card:nth-child(9)  { animation-delay: 0.18s; }
+.card-grid .card:nth-child(10) { animation-delay: 0.20s; }
+.card-grid .card:nth-child(11) { animation-delay: 0.22s; }
+.card-grid .card:nth-child(12) { animation-delay: 0.24s; }
+.card-grid .card:nth-child(13) { animation-delay: 0.26s; }
+.card-grid .card:nth-child(14) { animation-delay: 0.28s; }
+.card-grid .card:nth-child(15) { animation-delay: 0.30s; }
+.card-grid .card:nth-child(16) { animation-delay: 0.32s; }
+.card-grid .card:nth-child(17) { animation-delay: 0.34s; }
+.card-grid .card:nth-child(18) { animation-delay: 0.36s; }
+.card-grid .card:nth-child(19) { animation-delay: 0.38s; }
+.card-grid .card:nth-child(20) { animation-delay: 0.40s; }
+.card-grid .card:nth-child(21) { animation-delay: 0.42s; }
+.card-grid .card:nth-child(22) { animation-delay: 0.44s; }
+.card-grid .card:nth-child(23) { animation-delay: 0.46s; }
+.card-grid .card:nth-child(24) { animation-delay: 0.48s; }
+.card-grid .card:nth-child(25) { animation-delay: 0.50s; }
+.card-grid .card:nth-child(26) { animation-delay: 0.52s; }
+.card-grid .card:nth-child(27) { animation-delay: 0.54s; }
+.card-grid .card:nth-child(28) { animation-delay: 0.56s; }
+.card-grid .card:nth-child(29) { animation-delay: 0.58s; }
+.card-grid .card:nth-child(30) { animation-delay: 0.60s; }
+
+/* ── Trophy bounce (victory screen) ─────────────────────────── */
+@keyframes trophyBounce {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%       { transform: translateY(-18px) rotate(3deg); }
+}
+
+.trophy { animation: trophyBounce 2s ease-in-out infinite; }
+
+/* ── HUD value pop on change ─────────────────────────────────── */
+@keyframes hudPop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+.hud-val.popped { animation: hudPop 0.25s ease both; }
+
+/* ── Progress bar shimmer ────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+.progress-fill {
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ── Timer urgent pulse ──────────────────────────────────────── */
+@keyframes urgentPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+.hud-val.timer-urgent {
+  animation: urgentPulse 0.6s ease-in-out infinite;
+}
