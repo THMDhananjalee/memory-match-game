@@ -1,8 +1,8 @@
-# 🃏 Memory Match — Portfolio Edition
+# 🃏 Memory Match 
 
 > A professional-grade progressive memory card game featuring 10 levels, triplets/quads/quints mechanics, a memorization phase, procedural audio, and smooth animations. Built with vanilla JavaScript and no external dependencies.
 
-**[Live Demo](#)** · **[License: MIT](#)**
+
 
 ---
 
@@ -252,52 +252,4 @@ Star rating is based on fraction of time remaining:
 
 ---
 
-## Running Locally
 
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/memory-match.git
-cd memory-match
-
-# Option A: Python simple server
-python3 -m http.server 8080
-
-# Option B: Node.js (if you have npx)
-npx serve .
-
-# Then open: http://localhost:8080
-```
-
-> ⚠️ Must be served over HTTP (not opened as a `file://` URL) for the Web Audio API to work correctly in some browsers.
-
----
-
-## Engineering Decisions (Interview Notes)
-
-### "Why vanilla JS instead of React?"
-
-This project deliberately avoids frameworks to demonstrate a strong foundation. The state surface is small, there's no async data fetching, and the DOM mutations are minimal. Adding React would increase bundle size by ~40KB and add abstraction without solving any real problem this app has. If the game needed real-time multiplayer or complex derived state, that calculation would change.
-
-### "How does your state management scale?"
-
-`state.js` follows the same principles as Redux: single source of truth, immutable reads (`get()` returns a copy), explicit mutations (`set()`). Migrating to Redux or Zustand would mean replacing `state.js` with a store file — the rest of the codebase stays identical, because `game.js` already talks to state through an abstraction.
-
-### "Why Fisher-Yates over `array.sort()`?"
-
-`array.sort(() => Math.random() - 0.5)` is O(n log n) and — critically — biased. Different JS engines implement sort differently; some elements end up more likely to appear at certain positions than others. Fisher-Yates is O(n) and mathematically proven to produce uniform distributions.
-
-### "How would you add an 11th level?"
-
-Add one object to the `LEVELS` array in `config.js`. The engine, UI, scoring, and audio require zero changes. This is the Open/Closed Principle in practice.
-
-### "How do you prevent bugs from rapid clicking?"
-
-The `isLocked` flag in state blocks all card interaction during mismatch animations. It's set synchronously before any async operation and cleared in the animation callback. No race conditions are possible because JS is single-threaded — the lock is always set before the timeout fires.
-
-### "How is the memorize-to-play transition handled?"
-
-`GridBuilder.buildGridFromSequence()` copies the emoji order from the memorize grid's DOM data attributes to rebuild the play grid in identical order. This means the player sees the same card positions in both phases — crucial for the game to be fair.
-
----
-
-*Built with ♥ and vanilla JavaScript. No bundlers, no frameworks, no dependencies.*
